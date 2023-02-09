@@ -6,17 +6,17 @@ import './index.css';
 const SkiResort = () => {
   const [resorts, setResorts] = useState([]);
   const [newResort, setNewResort] = useState({ name: '', location: '', runs: '' });
-  const [newResortPhoto, setNewResortPhoto] = useState(null);
+  // const [newResortPhoto, setNewResortPhoto] = useState(null);
   const [editId, setEditId] = useState(null);
   
-  const [showWebcam, setShowWebcam] = useState(false);
-  const webcamRef = useRef(null);
+  // const [showWebcam, setShowWebcam] = useState(false);
+  // const webcamRef = useRef(null);
   
-  const videoConstraints = {
-    width: 400,
-    height: 400,
-    facingMode: 'user',
-  }
+  // const videoConstraints = {
+  //   width: 400,
+  //   height: 400,
+  //   facingMode: 'user',
+  // }
 
   const handleChange = (e) => {
     setNewResort({ ...newResort, [e.target.name]: e.target.value });
@@ -32,8 +32,8 @@ const SkiResort = () => {
       setResorts([...resorts, { ...newResort, id: resorts.length + 1 }]);
     }
     setNewResort({ name: '', location: '', runs: ''});
-    setNewResortPhoto(null);
-    setShowWebcam(false);
+    // setNewResortPhoto(null);
+    // setShowWebcam(false);
   };
 
   const handleEdit = (id) => {
@@ -46,12 +46,28 @@ const SkiResort = () => {
   };
 
   useEffect(() => {
-    document.title = "SKI-YA";  
+    document.title = "SKI-YA-LATER";  
   }, []);
+
+  const [image, setImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      setImage(file);
+      setImagePreviewUrl(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div>
-      <h1>SKI-YA</h1>
+      <h1>SKI-YA-LATER</h1>
       <form id='form1' onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" name="name" value={newResort.name} onChange={handleChange} />
         <input type="text" placeholder="Location" name="location" value={newResort.location} onChange={handleChange} />
@@ -81,7 +97,8 @@ const SkiResort = () => {
                 {showWebcam && (
                   <Webcam ref={webcamRef} imageSmoothing={true} audio={false} height={200} width={200} screenshotFormat="image/jpeg" videoConstraints={videoConstraints}  />
                 )} */}
-                <input type="file" name="myImage" onChange={(event) => { console.log(event.target.files[0]); setNewResortPhoto(event.target.files[0]); }} />
+                <input type="file" onChange={handleImageChange} />
+                {imagePreviewUrl ? ( <img src={imagePreviewUrl} alt="preview" style={{ width: 100, height: 100 }}/> ) : ( <p>Please select an image to upload</p> )}
               </td>
               <td width='10%'>
                 <button onClick={() => handleEdit(resort.id)}>Edit</button>
