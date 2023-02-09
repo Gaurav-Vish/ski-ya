@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import ReactDOM from "react-dom/client"
-import Webcam from "react-webcam";
+// import Webcam from "react-webcam";
 import './index.css';
 
 const SkiResort = () => {
@@ -75,13 +75,12 @@ const SkiResort = () => {
               <td width='10%'>{resort.location}</td>
               <td width='10%'>{resort.runs}</td>
               <td>
-                <button onClick={() => setShowWebcam(!showWebcam)}>
+                {/* <button onClick={() => setShowWebcam(!showWebcam)}>
                 {showWebcam ? 'Close Webcam' : 'Open Webcam'}
                 </button>
                 {showWebcam && (
                   <Webcam ref={webcamRef} imageSmoothing={true} audio={false} height={200} width={200} screenshotFormat="image/jpeg" videoConstraints={videoConstraints}  />
-                  )}
-                {/* <img alt="not found" width={250} src={URL.createObjectURL(newResortPhoto)} /> */}
+                )} */}
                 <input type="file" name="myImage" onChange={(event) => { console.log(event.target.files[0]); setNewResortPhoto(event.target.files[0]); }} />
               </td>
               <td width='10%'>
