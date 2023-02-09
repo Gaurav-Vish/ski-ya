@@ -95,5 +95,6 @@ const SkiResort = () => {
   );
 }
 
+// export default SkiResort
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<SkiResort/>);
